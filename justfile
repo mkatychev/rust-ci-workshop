@@ -1,8 +1,10 @@
 # Justfiles are processed by the just command runner (https://just.systems/).
 
-# You can install it with `brew install just` or `cargo install just`
 _default *args:
     just --list
+
+hello:
+  echo "Hello, world!"
 
 # Run a `flake.nix` package with arbitrary arguments
 @run package *args:

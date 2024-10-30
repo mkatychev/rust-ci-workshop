@@ -88,12 +88,28 @@ another-recipe:
 
 ---
 
-# SNo
+# CI: time is money friend!
+
+CI has 2 basic axes: time and money
+
+- time spent in CI
+- CI runner beefiness
+
+---
+
+# Considerations
+
+- is your CI runner self hosted?
+- where is the best place to put the most horsepower
+- is automating this really worth it???
+
+
+
 
 <!---->
 <!-- <iframe src="https://github.com/hahnec/marp-recipes/blob/master/compile.sh#L3-L11" class="h-full"></iframe> -->
 
-<iframe frameborder="0" scrolling="no" style="width:100%; height:268px;" allow="clipboard-write" src="https://emgithub.com/iframe.html?target=https%3A%2F%2Fgithub.com%2Fhahnec%2Fmarp-recipes%2Fblob%2Fmaster%2Fcompile.sh%23L3-L11&style=a11y-dark&type=code&showBorder=on&showLineNumbers=on&showFileMeta=on&showFullPath=on&showCopy=on"></iframe>
+<iframe frameborder="0" scrolling="no" style="width:100%; height:363px;" allow="clipboard-write" src="https://emgithub.com/iframe.html?target=https%3A%2F%2Fgithub.com%2Fhahnec%2Fmarp-recipes%2Fblob%2Fmaster%2Fcompile.sh%23L3-L11&style=default&type=markdown&showBorder=on&showLineNumbers=on&showFileMeta=on&showFullPath=on&showCopy=on"></iframe>
 
 ---
 
