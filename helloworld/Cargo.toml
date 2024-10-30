@@ -1,0 +1,25 @@
+[package]
+name = "helloworld-tonic"
+edition = "2021"
+version = "0.13.37"
+publish = false
+
+[[bin]] # Bin to run the HelloWorld gRPC server
+name = "hw-server"
+path = "src/server.rs"
+
+[[bin]] # Bin to run the HelloWorld gRPC client
+name = "hw-client"
+path = "src/client.rs"
+
+[dependencies]
+tonic = "0.12"
+prost = "0.13"
+tokio = { version = "1.0", features = ["macros", "rt-multi-thread"] }
+
+[build-dependencies]
+tonic-build = "0.12"
+
+[lints.rust]
+unexpected_cfgs = { level = "warn", check-cfg = ['cfg(ci)'] }
+
