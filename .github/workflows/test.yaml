@@ -1,0 +1,50 @@
+name: rust-ci-test
+
+env:
+  CARGO_TERM_COLOR: always
+  RUSTFLAGS: '--cfg ci'
+
+on:
+  workflow_dispatch:
+  pull_request:
+    branches: [main]
+    paths:
+      - "**.proto"
+      - "**.rs"
+      - "**/Cargo.lock"
+      - "**/Cargo.toml"
+      - ".github/workflows/test.yml"
+
+# https://docs.github.com/en/actions/using-workflows/workflow-syntax-for-github-actions#concurrency
+concurrency:
+  group: ${{ github.workflow }}-${{ github.event.pull_request.number || github.ref }}
+  cancel-in-progress: true
+
+
+jobs:
+  tests:
+    name: "tests and lints"
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        test:
+          - name: lint-rs
+          - name: test
+    steps:
+      - uses: actions/checkout@v4
+        # `GITHUB_TOKEN` allows bypassing of rate limiting
+        # env:
+        #   GITHUB_TOKEN: ${{ github.token }}
+      - uses: DeterminateSystems/nix-installer-action@main
+      - name: Setup build dependencies
+        run: |
+          nix profile install '.#protoc'
+      - name: ${{ matrix.test.name }}
+        run: |
+          # alternative installation for version-non critical deps
+          ./scripts/deps.sh just
+          declare -A task_map=()
+          # configmap + name directs task
+          task_map["lint"]="just lint"
+          task_map["test"]="just test"
+          ${task_map[${{ matrix.test.name }}]}

@@ -5,33 +5,102 @@ style: @import url('https://unpkg.com/tailwindcss@^2/dist/utilities.min.css');
 ---
 
 
-# Rust Errors:
-Seeing is Observing
+# Deploying Your Rust Code
+Please, just work...
 
-![bg right width:30em](https://www.shuttle.rs//images/blog/ferris-error-handling.png)
-
----
-
-## What is an error?
-* seriously... what is it?
-
-
-* [Wikipedia](https://en.wikipedia.org/wiki/Error#cite_note-:0-1): An error (from the Latin _errāre_, meaning 'to wander') is an inaccurate or incorrect action, thought, or judgement.[1]
-* Biology: a mutation
-* Law: mistakes made by a trial court
-* Statistics: an error (or residual) is not a "mistake"...
-    * but rather a difference between a computed, estimated, or measured value and the accepted true, specified, or theoretically correct value
+![bg right width:40em](./chi-ci.svg)
 
 ---
 
-## What _isn't_ an error? A successfully terminated process!
+## What are we doing?
 
-<iframe src="https://doc.rust-lang.org/std/process/struct.ExitCode.html#examples" class="h-full"></iframe>
+* Testing
+* Linting
+* Building
+* Deploying
 
+---
+## How are we doing?
+
+- bootstrapping
+- task running
+- caching
+- alerting
+
+---
+
+## Testing
+
+* `cargo test`
+* Testing
+* Building
+* Deploying
+---
+
+## Linting
+
+General/non-rust linting
+
+* taplo (TOML)
+* shellcheck (`bash`)
+* hadolint (`Dockerfile`)
+* typos
+* ast-grep
+
+
+---
+
+## Bash can be...
+
+- good!?
+- [readable](https://explainshell.com/explain?cmd=sudo+ln+-sf+%22%241%22+%22%242%22)
+- maintainable
+- reliable
+- not `python` or `node`!
+
+---
+
+## Get our task runner
+
+github.com/mkatychev/rust-...
+
+```bash
+_just() {
+  local version="1.36.0"
+  curl --proto '=https' --tlsv1.2 -sSf https://just.systems/install.sh | bash -s -- --tag $version --to "$HOME"/.cargo/bin
+}
+```
+
+
+---
+
+## [Just](https://just.systems/) is...
+- not `python`, `make`, or `cargo-make`!
+
+```justfile
+a-task-runner:
+  echo 'This is not meant to be used as a compilation tool!'
+
+# this is a comment
+another-recipe:
+  @echo 'This is another recipe.'
+```
+
+---
+
+# SNo
+
+<!---->
+<!-- <iframe src="https://github.com/hahnec/marp-recipes/blob/master/compile.sh#L3-L11" class="h-full"></iframe> -->
+
+<iframe frameborder="0" scrolling="no" style="width:100%; height:268px;" allow="clipboard-write" src="https://emgithub.com/iframe.html?target=https%3A%2F%2Fgithub.com%2Fhahnec%2Fmarp-recipes%2Fblob%2Fmaster%2Fcompile.sh%23L3-L11&style=a11y-dark&type=code&showBorder=on&showLineNumbers=on&showFileMeta=on&showFullPath=on&showCopy=on"></iframe>
 
 ---
 
 ## Error:
+
+
+https://github.com/mkatychev/rust_errors/blob//.github/workflows/test.yaml#L27-L29
 
 tl;dr: an error in Rust is something emitted by a `Result::Err` enum or the `panic!` macro
 
