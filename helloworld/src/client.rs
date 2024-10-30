@@ -33,6 +33,7 @@ mod tests {
     #[test]
     fn always_pass() {
         let _ = true;
+        // EXCEPT IN CI
         #[cfg(ci)]
         panic!("in GHA!!!!!");
     }
