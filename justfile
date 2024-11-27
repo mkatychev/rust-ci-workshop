@@ -62,8 +62,8 @@ run-server:
   cd ./helloworld && cargo run --bin=hw-server
 
 update-slides:
-  marp --html -o ./docs
+  marp --html -o ./docs -I ./docs
 
 # watch slides for changes, serving on localhost:8080
 watch-slides:
-  marp --server --watch --html -o docs -I docs
+  marp --server --watch --html -o ./docs -I ./docs
