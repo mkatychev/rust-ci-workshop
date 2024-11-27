@@ -8,11 +8,11 @@ style: @import url('https://unpkg.com/tailwindcss@^2/dist/utilities.min.css');
 # Deploying Your Rust Code
 Please, just work...
 
-![bg right width:40em](./chi-ci.svg)
+![bg right width:40em](./static/chi-ci.svg)
 
 ---
 
-## What are we doing?
+## What do we want to happen in CI?
 
 * Testing
 * Linting
@@ -20,7 +20,7 @@ Please, just work...
 * Deploying
 
 ---
-## How are we doing?
+## What do we want to happen in CI
 
 - bootstrapping
 - task running
@@ -31,10 +31,16 @@ Please, just work...
 
 ## Testing
 
-* `cargo test`
-* Testing
-* Building
-* Deploying
+* unit tests
+  - locally: `cargo test` (unit tests locally)
+  - in CI: [`cargo nextest`](https://nexte.st/)
+* integration tests: [`inventory`](https://docs.rs/inventory/latest/inventory/)
+
+* Not covered today:
+  * benchmarks: [`cargo criterion`](https://github.com/bheisler/cargo-criterion)
+  * fuzzing/prop-testing/model-checking:
+    - [`kani`](https://github.com/model-checking/kani) ([model checking](https://model-checking.github.io/kani/tool-comparison.html))
+    - [cargo-fuzz](https://github.com/rust-fuzz/cargo-fuzz)
 ---
 
 ## Linting
@@ -44,8 +50,12 @@ General/non-rust linting
 * taplo (TOML)
 * shellcheck (`bash`)
 * hadolint (`Dockerfile`)
-* typos
-* ast-grep
+* [typos](https://github.com/PeopleForBikes/bna-api/pull/147/files)
+* [ast-grep](https://ast-grep.github.io/catalog/rust/#yaml)
+
+Rust linting
+
+* https://github.com/knox-networks/bigerror/blob/main/justfile#L8-L9
 
 
 ---
@@ -62,7 +72,7 @@ General/non-rust linting
 
 ## Get our task runner
 
-github.com/mkatychev/rust-...
+https://github.com/mkatychev/rust-ci-workshop/blob/05cb4d5593c5b2dcba09cb214a85aac6355ab898/scripts/deps.sh#L104-L107
 
 ```bash
 _just() {
@@ -78,6 +88,14 @@ _just() {
 - not `python`, `make`, or `cargo-make`!
 
 <iframe frameborder="0" scrolling="no" style="width:100%; height:226px;" allow="clipboard-write" src="https://emgithub.com/iframe.html?target=https%3A%2F%2Fgithub.com%2Fmkatychev%2Frust-ci-workshop%2Fblob%2Ff679ee70444868d9e4ae79fc10268a60d6e00b29%2Fjustfile%23L1-L7&style=a11y-dark&type=code&showBorder=on&showLineNumbers=on&showFileMeta=on&showFullPath=on&showCopy=on"></iframe>
+
+
+---
+
+## Resolving dependencies (with nix)
+
+
+<iframe frameborder="0" scrolling="no" style="width:100%; height:394px;" allow="clipboard-write" src="https://emgithub.com/iframe.html?target=https%3A%2F%2Fgithub.com%2Fmkatychev%2Frust-ci-workshop%2Fblob%2F05cb4d5593c5b2dcba09cb214a85aac6355ab898%2Fflake.nix%23L24-L38&style=a11y-dark&type=code&showBorder=on&showLineNumbers=on&showFileMeta=on&showFullPath=on&showCopy=on"></iframe>
 
 
 ---
@@ -147,3 +165,6 @@ Axes: Speed and reliablility (reproducibility, security)
 <iframe frameborder="0" scrolling="no" style="width:100%; height:121px;" allow="clipboard-write" src="https://emgithub.com/iframe.html?target=https%3A%2F%2Fgithub.com%2Fmkatychev%2Frust-ci-workshop%2Fblob%2F04cd83f8ed0bd9a7ee8bf173ec3a8bd00e97dca0%2Fhelloworld%2FCargo.toml%23L23-L24&style=a11y-dark&type=code&showBorder=on&showLineNumbers=on&showFileMeta=on&showFullPath=on&showCopy=on"></iframe>
 
 ---
+
+
+

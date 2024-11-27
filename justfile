@@ -3,6 +3,7 @@
 _default *args:
     just --list
 
+# this is Hello
 hello:
   echo "Hello, world!"
 
@@ -59,3 +60,10 @@ run-client:
 
 run-server:
   cd ./helloworld && cargo run --bin=hw-server
+
+update-slides:
+  marp --html -o ./docs
+
+# watch slides for changes, serving on localhost:8080
+watch-slides:
+  marp --server --watch --html -o docs

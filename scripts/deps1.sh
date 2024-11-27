@@ -12,7 +12,6 @@ USAGE:
 
 DEPS:
   cargo-nextest
-  flatc
   just
   protoc
 
@@ -43,7 +42,7 @@ exists() {
   # rather than what is found in $PATH
   if [[ "$NO_SYMLINK" == "true" ]]; then
     case "$command" in
-    # anything starting with cargo- is a cargo subcommand
+    # NOTE any binary name with a prefix of `cargo-` is a cargo subcommand
     # thus has to lie in ~/.cargo/bin
     cargo-*) command="$HOME/.cargo/bin/$command" ;;
     *) command="$HOME/.local/bin/$command" ;;
@@ -61,8 +60,8 @@ exists() {
 }
 
 # prepend with underscore to avoid accidentally triggering a function
-# the snippet below would attempt to trigger a function named flatc:
-# $(exists flatc)
+# the snippet below would attempt to trigger a function named protoc:
+# $(exists protoc)
 install() {
   echo "installing $1..."
   "_$1"
@@ -122,7 +121,7 @@ DEPS=()
 # ${var//pattern/replacement}
 # ----------------------------
 # This strips commas from args:
-# string "just, flatc" -> array (just flatc)
+# string "just, protoc" -> array (just protoc)
 for arg in "${@//,/}"; do
   # handle --flags here
   if [[ $arg == [-]* ]]; then
@@ -153,4 +152,3 @@ for dep in "${DEPS[@]}"; do
   fi
 
 done
-

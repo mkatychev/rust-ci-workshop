@@ -8,14 +8,35 @@
     flake-utils.url = "github:numtide/flake-utils";
   };
 
-  outputs = { self, nixpkgs, crane, flake-utils }:
-    flake-utils.lib.eachDefaultSystem (system:
+  outputs =
+    {
+      self,
+      nixpkgs,
+      crane,
+      flake-utils,
+    }:
+
+    flake-utils.lib.eachDefaultSystem (
+      system:
       let
         # libs
         pkgs = import nixpkgs { inherit system; };
         inherit (pkgs) lib;
 
-        craneLib = crane.lib.${system};
+        craneLib = crane.mkLib pkgs;
+        helloworld = craneLib.buildPackage {
+          src = craneLib.cleanCargoSource ./helloworld;
+
+          buildInputs =
+            [
+              pkgs.protobuf_26
+              # Add additional build inputs here
+            ]
+            ++ pkgs.lib.optionals pkgs.stdenv.isDarwin [
+              # Additional darwin specific inputs can be set here
+              pkgs.libiconv
+            ];
+        };
 
       in
       {
@@ -29,6 +50,7 @@
           fd = pkgs.fd;
           just = pkgs.just;
           protoc = pkgs.protobuf_26;
+          zellij = pkgs.zellij;
           shellcheck = pkgs.shellcheck;
           # rustup = pkgs.rustup;
           # NOTE sucks: compiles from source
@@ -36,14 +58,26 @@
           # hadolint = pkgs.hadolint;
 
         };
+        devShells.default = craneLib.devShell {
+          # Automatically inherit any build inputs from `my-crate`
+          inputsFrom = [ helloworld ];
+
+          # Extra inputs (only used for interactive development)
+          # can be added here; cargo and rustc are provided by default.
+          packages = [
+            pkgs.cargo-nextest
+            pkgs.just
+          ];
+        };
 
         # TODO
-        apps =
-          with flake-utils.lib;
-          { default = mkApp { drv = server; exePath = "/bin/hw-server"; }; };
+        apps = with flake-utils.lib; {
+          default = mkApp {
+            drv = server;
+            exePath = "/bin/hw-server";
+          };
+        };
 
-      });
+      }
+    );
 }
-
-
-
