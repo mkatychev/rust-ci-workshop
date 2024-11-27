@@ -8,7 +8,7 @@ style: @import url('https://unpkg.com/tailwindcss@^2/dist/utilities.min.css');
 # Deploying Your Rust Code
 Please, just work...
 
-![bg right width:40em](./static/chi-ci.svg)
+![bg right width:40em](./chi-ci.svg)
 
 ---
 

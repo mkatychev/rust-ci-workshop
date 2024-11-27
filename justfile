@@ -66,4 +66,4 @@ update-slides:
 
 # watch slides for changes, serving on localhost:8080
 watch-slides:
-  marp --server --watch --html -o docs
+  marp --server --watch --html -o docs -I docs
